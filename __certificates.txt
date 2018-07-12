@@ -1,0 +1,187 @@
+--------------------------------------------------------------------------------
+
+package main
+import (
+    // "fmt"
+    // "io"
+    "net/http"
+    "log"
+)
+func HelloServer(w http.ResponseWriter, req *http.Request) {
+    w.Header().Set("Content-Type", "text/plain")
+    w.Write([]byte("This is an example server.\n"))
+    // fmt.Fprintf(w, "This is an example server.\n")
+    // io.WriteString(w, "This is an example server.\n")
+}
+func main() {
+    http.HandleFunc("/hello", HelloServer)
+    err := http.ListenAndServeTLS(":443", "server.crt", "server.key", nil)
+    if err != nil {
+        log.Fatal("ListenAndServe: ", err)
+    }
+}
+
+--------------------------------------------------------------------------------
+
+// TLS (transport layer security) - Server
+package main
+import (
+    "log"
+    "crypto/tls"
+    "net"
+    "bufio"
+)
+func main() {
+    log.SetFlags(log.Lshortfile)
+    cer, err := tls.LoadX509KeyPair("server.crt", "server.key")
+    if err != nil {
+        log.Println(err)
+        return
+    }
+    config := &tls.Config{Certificates: []tls.Certificate{cer}}
+    ln, err := tls.Listen("tcp", ":443", config)
+    if err != nil {
+        log.Println(err)
+        return
+    }
+    defer ln.Close()
+    for {
+        conn, err := ln.Accept()
+        if err != nil {
+            log.Println(err)
+            continue
+        }
+        go handleConnection(conn)
+    }
+}
+func handleConnection(conn net.Conn) {
+    defer conn.Close()
+    r := bufio.NewReader(conn)
+    for {
+        msg, err := r.ReadString('\n')
+        if err != nil {
+            log.Println(err)
+            return
+        }
+        println(msg)
+        n, err := conn.Write([]byte("world\n"))
+        if err != nil {
+            log.Println(n, err)
+            return
+        }
+    }
+}
+
+--------------------------------------------------------------------------------
+
+// Perfect SSL Labs Score with Go
+package main
+import (
+    "crypto/tls"
+    "log"
+    "net/http"
+)
+func main() {
+    mux := http.NewServeMux()
+    mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
+        w.Header().Add("Strict-Transport-Security", "max-age=63072000; includeSubDomains")
+        w.Write([]byte("This is an example server.\n"))
+    })
+    cfg := &tls.Config{
+        MinVersion:               tls.VersionTLS12,
+        CurvePreferences:         []tls.CurveID{tls.CurveP521, tls.CurveP384, tls.CurveP256},
+        PreferServerCipherSuites: true,
+        CipherSuites: []uint16{
+            tls.TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,
+            tls.TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA,
+            tls.TLS_RSA_WITH_AES_256_GCM_SHA384,
+            tls.TLS_RSA_WITH_AES_256_CBC_SHA,
+        },
+    }
+    srv := &http.Server{
+        Addr:         ":443",
+        Handler:      mux,
+        TLSConfig:    cfg,
+        TLSNextProto: make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
+    }
+    log.Fatal(srv.ListenAndServeTLS("tls.crt", "tls.key"))
+}
+
+--------------------------------------------------------------------------------
+
+INITIAL CERTIFICATE:
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+    req ^
+    -nodes ^
+    -x509 ^
+    -days 365 ^
+    -newkey rsa:2048 ^
+    -keyout demo.key ^
+    -out demo.crt
+
+INITIAL CERTIFICATE:
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+    req -x509 -nodes -days 365 -newkey rsa:2048 -keyout xxyyzz.key -out xxyyzz.crt
+
+
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+    req ^
+    -new ^
+    -sha256 ^
+    -nodes ^
+    -x509 ^
+    -days 365 ^
+    -newkey rsa:2048 ^
+    -keyout demo.key ^
+    -out demo.crt
+
+    -config demo.conf ^
+
+writing new private key to 'demo.key'
+-----
+You are about to be asked to enter information that will be incorporated
+into your certificate request.
+What you are about to enter is what is called a Distinguished Name or a DN.
+There are quite a few fields but you can leave some blank
+For some fields there will be a default value,
+If you enter '.', the field will be left blank.
+-----
+Country Name (2 letter code) [AU]:NG
+State or Province Name (full name) [Some-State]:Kano
+Locality Name (eg, city) []:Kano
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:Active Systems Enterprises
+Organizational Unit Name (eg, section) []:
+Common Name (e.g. server FQDN or YOUR name) []:Active Systems
+Email Address []:actisyst@gmail.com
+
+
+
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+genrsa -des3 -out rootCA.key 2048
+
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+req -x509 -new -nodes -key rootCA.key -sha256 -days 1024 -out rootCA.pem
+
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+req ^
+-new ^
+-sha256 ^
+-nodes ^
+-out server.csr ^
+-newkey ^
+rsa:2048 ^
+-keyout server.key ^
+-config server.csr.cnf
+
+"C:\Program Files\Git\usr\bin\openssl.exe" ^
+x509 ^
+-req ^
+-in server.csr ^
+-CA rootCA.pem ^
+-CAkey rootCA.key ^
+-CAcreateserial ^
+-out server.crt ^
+-days 500 ^
+-sha256 ^
+-extfile v3.ext
+
