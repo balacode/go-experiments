@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-06-20 00:14:57 379EFD                   go-experiments/[tls_demo.go]
+// :v: 2019-05-03 17:15:46 9A736E                   go-experiments/[tls_demo.go]
 // -----------------------------------------------------------------------------
 
 package main
@@ -57,7 +57,7 @@ func serverDemo() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-    var redirect = func() {
+    redirect := func() {
         const path = "/main.html"
         fmt.Println("REDIRECT:", r.URL.Path, "TO:", path)
         http.Redirect(w, r, path, http.StatusSeeOther) // StatusSeeOther (303)

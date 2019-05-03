@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2018-06-14 01:17:40 A655B7                go-experiments/[server_demo.go]
+// :v: 2019-05-03 17:15:46 83BA10                go-experiments/[server_demo.go]
 // -----------------------------------------------------------------------------
 
 package main
@@ -18,7 +18,7 @@ func serverDemo() {
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
-	var redirect = func() {
+	redirect := func() {
 		const path = "/main.html"
 		fmt.Println("REDIRECT:", r.URL.Path, "TO:", path)
 		http.Redirect(w, r, path, http.StatusSeeOther) // StatusSeeOther (303)
@@ -116,7 +116,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		The difference between 301 and 303:
 
 		Note: Be careful with this code. Browsers and proxies tend to apply
-		really agressive caching on it, so if you reply with a 301 it might take
+		really aggressive caching on it, so if you reply with a 301 it might take
 		a long while for someone to revisit that url.
 
 	*/
