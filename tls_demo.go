@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-03 17:15:46 9A736E                   go-experiments/[tls_demo.go]
+// :v: 2019-05-06 05:43:22 3C180D                   go-experiments/[tls_demo.go]
 // -----------------------------------------------------------------------------
 
 package main
@@ -35,10 +35,11 @@ func tlsServerDemo() {
 		},
 	}
 	srv := &http.Server{
-		Addr:         ":443",
-		Handler:      mux,
-		TLSConfig:    cfg,
-		TLSNextProto: make(map[string]func(*http.Server, *tls.Conn, http.Handler), 0),
+		Addr:      ":443",
+		Handler:   mux,
+		TLSConfig: cfg,
+		TLSNextProto: make(map[string]func(
+			*http.Server, *tls.Conn, http.Handler), 0),
 	}
 	log.Fatal(srv.ListenAndServeTLS("server.crt", "server.key"))
 } //                                                               tlsServerDemo
