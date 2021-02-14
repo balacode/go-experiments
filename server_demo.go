@@ -156,7 +156,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-//end
+// end
 
 /* ///
     http.HandleFunc("/redirectTo", targetHandler)

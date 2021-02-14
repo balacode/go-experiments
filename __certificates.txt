@@ -1,4 +1,7 @@
---------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
+-- Go Language Experiments                   go-experiments/[__certificates.txt]
+-- (c) balarabe@protonmail.com                                      License: MIT
+-- -----------------------------------------------------------------------------
 
 package main
 import (
@@ -21,7 +24,7 @@ func main() {
     }
 }
 
---------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 
 // TLS (transport layer security) - Server
 package main
@@ -72,7 +75,7 @@ func handleConnection(conn net.Conn) {
     }
 }
 
---------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 
 // Perfect SSL Labs Score with Go
 package main
@@ -107,7 +110,7 @@ func main() {
     log.Fatal(srv.ListenAndServeTLS("tls.crt", "tls.key"))
 }
 
---------------------------------------------------------------------------------
+-- -----------------------------------------------------------------------------
 
 INITIAL CERTIFICATE:
 "C:\Program Files\Git\usr\bin\openssl.exe" ^
@@ -152,7 +155,7 @@ Locality Name (eg, city) []:Kano
 Organization Name (eg, company) [Internet Widgits Pty Ltd]:Active Systems Enterprises
 Organizational Unit Name (eg, section) []:
 Common Name (e.g. server FQDN or YOUR name) []:Active Systems
-Email Address []:actisyst@gmail.com
+Email Address []:balarabe@protonmail.com
 
 
 
@@ -185,3 +188,4 @@ x509 ^
 -sha256 ^
 -extfile v3.ext
 
+-- end
