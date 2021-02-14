@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
+// Go Language Experiments                       go-experiments/[server_demo.go]
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 06:19:33 DA0ECF                go-experiments/[server_demo.go]
 // -----------------------------------------------------------------------------
 
 package main

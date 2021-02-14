@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
+// Go Language Experiments                          go-experiments/[tls_demo.go]
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-06 05:43:22 3C180D                   go-experiments/[tls_demo.go]
 // -----------------------------------------------------------------------------
 
 package main

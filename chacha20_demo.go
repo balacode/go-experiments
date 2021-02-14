@@ -1,6 +1,6 @@
 // -----------------------------------------------------------------------------
+// Go Language Experiments                     go-experiments/[chacha20_demo.go]
 // (c) balarabe@protonmail.com                                      License: MIT
-// :v: 2019-05-11 16:23:33 1E64C6              go-experiments/[chacha20_demo.go]
 // -----------------------------------------------------------------------------
 
 package main
