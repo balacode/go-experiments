@@ -16,8 +16,9 @@ func main() {
 	fmt.Println(div)
 	fmt.Println("Running go-experiments...")
 	{
-		aesDemo()
+		// aesDemo()
 		// chacha20EncryptionDemo()
+		rsaDemo()
 		// serverDemo()
 		// tlsServerDemo()
 	}
