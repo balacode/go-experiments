@@ -7,14 +7,21 @@ package main
 
 import (
 	"fmt"
+	"strings"
 )
 
-func main() {
-	fmt.Println("running go-experiments")
+var div = strings.Repeat("-", 80)
 
-	// serverDemo()
-	// tlsServerDemo()
-	chacha20EncryptionDemo()
-}
+func main() {
+	fmt.Println(div)
+	fmt.Println("Running go-experiments...")
+	{
+		chacha20EncryptionDemo()
+		// serverDemo()
+		// tlsServerDemo()
+	}
+	fmt.Println(div)
+	fmt.Println("Finished go-experiments")
+} //                                                                        main
 
 // end

@@ -11,6 +11,8 @@ import (
 	"net/http"
 )
 
+var _ = tlsServerDemo
+
 func tlsServerDemo() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
@@ -39,7 +41,7 @@ func tlsServerDemo() {
 		Handler:   mux,
 		TLSConfig: cfg,
 		TLSNextProto: make(map[string]func(
-			*http.Server, *tls.Conn, http.Handler), 0),
+			*http.Server, *tls.Conn, http.Handler)),
 	}
 	log.Fatal(srv.ListenAndServeTLS("server.crt", "server.key"))
 } //                                                               tlsServerDemo

@@ -11,6 +11,9 @@ import (
 	"net/http"
 )
 
+var _ = serverDemo
+var _ = handler
+
 func serverDemo() {
 	fmt.Println("running serverDemo()")
 	http.HandleFunc("/", handler)
