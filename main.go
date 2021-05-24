@@ -22,6 +22,7 @@ func main() {
 		// serverDemo()
 		// tlsWebServerDemo()
 		// tlsSocketServerDemo()
+		udpDemo()
 	}
 	fmt.Println(div)
 	fmt.Println("Finished go-experiments")
