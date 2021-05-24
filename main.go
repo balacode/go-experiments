@@ -21,6 +21,7 @@ func main() {
 		// rsaDemo()
 		// serverDemo()
 		// tlsWebServerDemo()
+		// tlsSocketServerDemo()
 	}
 	fmt.Println(div)
 	fmt.Println("Finished go-experiments")
