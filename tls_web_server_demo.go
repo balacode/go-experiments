@@ -1,5 +1,5 @@
 // -----------------------------------------------------------------------------
-// Go Language Experiments                          go-experiments/[tls_demo.go]
+// Go Language Experiments               go-experiments/[tls_web_server_demo.go]
 // (c) balarabe@protonmail.com                                      License: MIT
 // -----------------------------------------------------------------------------
 
@@ -11,9 +11,9 @@ import (
 	"net/http"
 )
 
-var _ = tlsServerDemo
+var _ = tlsWebServerDemo
 
-func tlsServerDemo() {
+func tlsWebServerDemo() {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", func(w http.ResponseWriter, req *http.Request) {
 		w.Header().Add(
@@ -44,7 +44,7 @@ func tlsServerDemo() {
 			*http.Server, *tls.Conn, http.Handler)),
 	}
 	log.Fatal(srv.ListenAndServeTLS("server.crt", "server.key"))
-} //                                                               tlsServerDemo
+} //                                                            tlsWebServerDemo
 
 /*
 import (
